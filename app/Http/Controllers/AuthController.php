@@ -19,7 +19,6 @@ class AuthController extends Controller
     {
         $validateUser = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
@@ -35,7 +34,6 @@ class AuthController extends Controller
 
         $user = User::create([
             'name' => $request->name,
-            'email' => $request->email,
             'password' => Hash::make($request->password),
             'address' => $request->address,
             'phone' => $request->phone,
@@ -50,14 +48,14 @@ class AuthController extends Controller
             'message' => 'User created successfully',
             'token' => $token,
             'user' => $user
-        ], 201);
+        ], 200);
     }
 
     // Login function
     public function loginUser(Request $request)
     {
         $validated = $request->validate([
-            'email' => 'required|email',
+            'phone' => 'required|string',
             'password' => 'required|string',
         ]);
 
@@ -103,7 +101,6 @@ class AuthController extends Controller
 
         $validated = $request->validate([
             'name' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
             'address' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:15',

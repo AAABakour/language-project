@@ -5,12 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Resturant extends Model
+class Offer extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'name',
-        'location',
+        'title',
+        'discount',
         'description',
+    ];
+        protected $hidden = [
+            'created_at',
+            'updated_at',
     ];
 }
